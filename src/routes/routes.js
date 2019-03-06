@@ -1,20 +1,25 @@
 import React from 'react'
 import {
     BrowserRouter as Router,
-    Route,
-    Link
+    Route
 } from 'react-router-dom'
 import Home from '../components/home'
-import About from '../components/about'
-import Topics from '../components/topics'
+import User from "./User";
+import HeaderLayout from '../components/Layout/header'
+import {RegisterContainer,LoginContainer} from '../containers/User/user'
 
 const Routes = () => (
-    <Router>
-        <div>
-            <Route exact path="/" component={Home}/>
-            <Route path="/about" component={About}/>
-            <Route path="/topics" component={Topics}/>
-        </div>
-    </Router>
+    <div>
+        <Router>
+            <div>
+                {/*<HeaderLayout/>*/}
+                <Route exact path="/" component={Home}/>
+                <Route path="/user" component={User}/>
+                <Route path="/login" component={LoginContainer}/>
+                <Route path="/register" component={RegisterContainer}/>
+            </div>
+        </Router>
+    </div>
+
 )
 export default Routes
