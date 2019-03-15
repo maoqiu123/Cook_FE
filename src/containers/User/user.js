@@ -8,16 +8,6 @@ import RegisterReducer from '../../reducers/reducers'
 
 const store = createStore(RegisterReducer)
 
-class UserContainer extends Component{
-    render(){
-        return(
-            <div>
-
-            </div>
-        )
-    }
-}
-
 class RegisterContainer extends Component{
 
     render(){

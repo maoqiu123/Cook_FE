@@ -12,7 +12,7 @@ const menu = {
 // 负责用户名的加载、保存，评论的发布
 class LoginContainer extends Component {
     static propTypes = {
-        data: PropTypes.array,
+        load: PropTypes.any,
         onSubmit: PropTypes.func
     }
     constructor(){
@@ -22,22 +22,20 @@ class LoginContainer extends Component {
         }
     }
 
-    handleSubmitComment (user) {
+    async handleSubmitComment (user) {
         if (!user.email) return alert('请输入邮箱')
         if (!user.password) return alert('请输入密码')
         if (this.props.onSubmit) {
-            this.props.onSubmit(user)
+            await this.props.onSubmit(user)
         }
     }
-
 
     render () {
         return (
             <div>
                 <HeaderLayout data={this.state}/>
                 <LoginComponent
-                    // username={this.state.username}
-                    // onUserNameInputBlur={this._saveUsername.bind(this)}
+                    load={this.props.load}
                     onSubmit={this.handleSubmitComment.bind(this)} />
             </div>
 
@@ -47,14 +45,15 @@ class LoginContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        comments: state.comments
+        load: state
     }
+
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit: (comment) => {
-            dispatch(login(comment))
+        onSubmit: async (user) => {
+            await dispatch(login(user))
         }
     }
 }

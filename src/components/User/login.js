@@ -7,23 +7,46 @@ import { Link } from 'react-router-dom'
 import './login.css';
 
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            load: props.load,
+            loading : false
+        }
+    }
+
     static propTypes = {
+        load: PropTypes.any,
         onSubmit: PropTypes.func,
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
+        this.props.form.validateFieldsAndScroll(async (err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
-                if (this.props.onSubmit) {
-                    this.props.onSubmit({
-                        email: values.email,
-                        password: values.password,
-                        createdTime: +new Date()
-                    })
+                // console.log('Received values of form: ', values);
+                this.setState({
+                    loading: true
+                })
+                if (this.state.loading === true){
+
+                } else {
+                    if (this.props.onSubmit) {
+                        this.props.onSubmit({
+                            email: values.email,
+                            password: values.password,
+                            createdTime: +new Date()
+                        })
+                        this.props.load.then(
+                            (res) => {
+
+                                this.setState({
+                                    loading: res.status
+                                })
+                            }
+                        )
+                    }
                 }
-                // this.setState({ content: '' })
             }
         });
     }
@@ -65,7 +88,7 @@ class Login extends Component {
                         <Checkbox>Remember me</Checkbox>
                     )}
                     <a className="login-form-forgot" href="">Forgot password</a>
-                    <Button type="primary" htmlType="submit" className="login-form-button">
+                    <Button type="primary" htmlType="submit" className="login-form-button" loading={this.state.loading}>
                         Log in
                     </Button>
                     Or <Link to="/register">register now!</Link>
