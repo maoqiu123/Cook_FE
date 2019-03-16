@@ -58,6 +58,19 @@ export async function loginRequest (user,request) {
         return false;
     }
 }
+
+export function checkToken(token) {
+    let res = request("/user",{
+        method:"GET",
+        data:{
+            "token":token,
+        }
+    }).then((res)=>{
+        return null
+    })
+    console.log(res)
+}
+
 // LoginRequest.prototype = new BaseRequest();
 function setCookie(name,value)
 {

@@ -39,7 +39,6 @@ class Login extends Component {
                         })
                         this.props.load.then(
                             (res) => {
-
                                 this.setState({
                                     loading: res.status
                                 })

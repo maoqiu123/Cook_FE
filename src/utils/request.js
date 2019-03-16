@@ -4,9 +4,13 @@ export function request(url,options) {
     axios.defaults.baseURL = "http://localhost:80";
     // axios.defaults.headers.post['Content-Type'] = 'application/json';
     if (options.method === "GET" || options.method === "DELETE") {
+        let data = "?"
+        for (let key in options.data){
+            data += key+"="+options.data[key]+"&"
+        }
         return axios({
             method:"GET",
-            url:url,
+            url:url+data,
             // headers:{
             //             //     'Content-Type': 'application/json',
             //             // }

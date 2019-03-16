@@ -1,9 +1,10 @@
-import {registerRequest,loginRequest} from './User/user'
+import {registerRequest,loginRequest,checkToken} from './User/user'
 import {request} from '../utils/request'
 
 // action types
 const REGISTER = 'register'
 const LOGIN = 'login'
+const USER = 'user'
 
 // reducer
 export default async function (state, action) {
@@ -22,6 +23,10 @@ export default async function (state, action) {
                 }
             )
             return { status: status }
+        case USER:
+            let d = checkToken(action.data)
+            console.log(d)
+            return {action}
         default:
             return state
     }
@@ -34,4 +39,8 @@ export const  register = (user) => {
 
 export const login = (user) => {
     return { type: LOGIN, user }
+}
+
+export const showUser = (data) => {
+    return { type: USER, data }
 }
