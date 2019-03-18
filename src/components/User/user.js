@@ -10,33 +10,45 @@ import {showUser} from "../../reducers/reducers";
 import connect from "react-redux/es/connect/connect";
 import PropTypes from 'prop-types'
 
-const menu = {
-    topselectkeys:'2',
-    menuName:'User',
-    leftSelectedKeys:'1',
-    leftdefaultOpenKeys:'sub1'
-}
+// const menu = {
+//     topselectkeys:'2',
+//     menuName:'User',
+//     leftSelectedKeys:'1',
+//     leftdefaultOpenKeys:'sub1'
+// }
 
-class UserContainer extends Component{
+class UserComponent extends Component{
     static propTypes = {
+        data: PropTypes.any,
+        userData: PropTypes.array,
         onShow: PropTypes.func
     }
-    constructor(){
-        super()
+    state={
+        menu:{
+            topselectkeys:'2',
+            menuName:'User',
+            leftSelectedKeys:'1',
+            leftdefaultOpenKeys:'sub1'
+        }
     }
-    componentWillMount () {
-        this.props.onShow(localStorage.getItem("token"))
-        this.setState({...this.props,menu})
+    componentDidMount () {
+        // this.props.onShow(localStorage.getItem("token"))
+        // console.log(this.props)
+        // this.setState({...this.state,...this.props})
+    }
+    componentDidUpdate(){
+        // console.log(this.props)
     }
     render(){
+        // console.log(this.state)
         return(
             <Layout>
-                {/*{console.log(this.state)}*/}
+                {/*{console.log(this.props.data)}*/}
                 {/* 头部 */}
                 <HeaderLayout data={this.state}/>
                 <Layout>
                     {/* 左部 */}
-                    <SiderLayout data={this.state}/>
+                    {/*<SiderLayout data={this.state}/>*/}
                     <Layout style={{ padding: '0 24px 24px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
                             <Breadcrumb.Item>Menu</Breadcrumb.Item>
@@ -50,18 +62,5 @@ class UserContainer extends Component{
         )
     }
 }
-const mapStateToProps = (state) => {
-    return {
-        data: null
-    }
 
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onShow: (token) => {
-            dispatch(showUser(token))
-        }
-    }
-}
-
-export default connect(null,mapDispatchToProps)(UserContainer)
+export default UserComponent

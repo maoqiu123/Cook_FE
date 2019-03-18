@@ -65,10 +65,8 @@ export function checkToken(token) {
         data:{
             "token":token,
         }
-    }).then((res)=>{
-        return null
     })
-    console.log(res)
+    return res
 }
 
 // LoginRequest.prototype = new BaseRequest();

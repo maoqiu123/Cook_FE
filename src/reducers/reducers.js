@@ -7,26 +7,21 @@ const LOGIN = 'login'
 const USER = 'user'
 
 // reducer
-export default async function (state, action) {
-    if (!state) {
-        state = {}
-    }
+export default function (state={ staus:"" }, action) {
     switch (action.type) {
         case REGISTER:
             registerRequest(action.user,request)
             return { user: action.user }
         case LOGIN:
             let status = true
-            await loginRequest(action.user,request).then(
+            loginRequest(action.user,request).then(
                 (res) => {
                     status = res
                 }
             )
             return { status: status }
         case USER:
-            let d = checkToken(action.data)
-            console.log(d)
-            return {action}
+            return action.data
         default:
             return state
     }
