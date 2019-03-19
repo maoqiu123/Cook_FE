@@ -1,19 +1,27 @@
 import React,{Component} from 'react'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import Register from './register'
 import Login from './login'
 import RegisterReducer, {showUser} from '../../reducers/reducers'
 import UserComponent from '../../components/User/user'
-import connect from "react-redux/es/connect/connect";
+import connect from "react-redux/es/connect/connect"
 import PropTypes from 'prop-types'
 import {request} from '../../utils/request'
+import thunk from 'redux-thunk';
 
-const store = createStore(
-    RegisterReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const composeEnhancers =
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+        }) : compose;
+
+const enhancer = composeEnhancers(
+    applyMiddleware(thunk),
+
 );
-
+const store = createStore(RegisterReducer, enhancer);
 class RegisterContainer extends Component{
 
     render(){
