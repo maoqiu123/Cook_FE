@@ -52,7 +52,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
         onSubmit: async (user) => {
             await dispatch(login(user))
         }
