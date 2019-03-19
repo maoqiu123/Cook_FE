@@ -7,7 +7,7 @@ const LOGIN = 'login'
 const USER = 'user'
 
 // reducer
-export default function (state={ staus:"" }, action) {
+export default function (state={ data:[] }, action) {
     switch (action.type) {
         case REGISTER:
             registerRequest(action.user,request)
@@ -21,7 +21,7 @@ export default function (state={ staus:"" }, action) {
             )
             return { status: status }
         case USER:
-            return action.data
+            return {...state,...action}
         default:
             return state
     }

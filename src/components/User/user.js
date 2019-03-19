@@ -10,45 +10,68 @@ import {showUser} from "../../reducers/reducers";
 import connect from "react-redux/es/connect/connect";
 import PropTypes from 'prop-types'
 
-// const menu = {
-//     topselectkeys:'2',
-//     menuName:'User',
-//     leftSelectedKeys:'1',
-//     leftdefaultOpenKeys:'sub1'
-// }
+const menu = {
+    topselectkeys:'2',
+    menuName:'User',
+    leftSelectedKeys:'1',
+    leftdefaultOpenKeys:'sub1'
+}
+const userData = [
+    {
+        "key":"sub1",
+        "name":"用户资料",
+        "type":"user",
+        "items":[
+            {
+                "key":1,
+                "name":"详细资料"
+            }
+        ]
+    },
+    {
+        "key":"sub2",
+        "name":"设置",
+        "type":"setting",
+        "items":[
+            {
+                "key":2,
+                "name":"修改资料"
+            },
+            {
+                "key":3,
+                "name":"修改密码"
+            },
+            {
+                "key":4,
+                "name":"邮箱换绑"
+            },
+        ]
+    }
+];
 
 class UserComponent extends Component{
     static propTypes = {
         data: PropTypes.any,
-        userData: PropTypes.array,
         onShow: PropTypes.func
     }
     state={
-        menu:{
-            topselectkeys:'2',
-            menuName:'User',
-            leftSelectedKeys:'1',
-            leftdefaultOpenKeys:'sub1'
-        }
+        menu:menu,
+        userData:userData
     }
     componentDidMount () {
-        // this.props.onShow(localStorage.getItem("token"))
-        // console.log(this.props)
-        // this.setState({...this.state,...this.props})
+
     }
     componentDidUpdate(){
         // console.log(this.props)
     }
     render(){
-        // console.log(this.state)
         return(
             <Layout>
-                {/*{console.log(this.props.data)}*/}
                 {/* 头部 */}
-                <HeaderLayout data={this.state}/>
+                <HeaderLayout data={{menu:this.state.menu,data:this.props.data.data}}/>
                 <Layout>
                     {/* 左部 */}
-                    {/*<SiderLayout data={this.state}/>*/}
+                    <SiderLayout data={this.state}/>
                     <Layout style={{ padding: '0 24px 24px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
                             <Breadcrumb.Item>Menu</Breadcrumb.Item>

@@ -9,7 +9,10 @@ import connect from "react-redux/es/connect/connect";
 import PropTypes from 'prop-types'
 import {request} from '../../utils/request'
 
-const store = createStore(RegisterReducer);
+const store = createStore(
+    RegisterReducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 class RegisterContainer extends Component{
 
@@ -31,65 +34,26 @@ class LoginContainer extends Component{
         )
     }
 }
-const userData = [
-    {
-        "key":"sub1",
-        "name":"用户资料",
-        "type":"user",
-        "items":[
-            {
-                "key":1,
-                "name":"详细资料"
-            }
-        ]
-    },
-    {
-        "key":"sub2",
-        "name":"设置",
-        "type":"setting",
-        "items":[
-            {
-                "key":2,
-                "name":"修改资料"
-            },
-            {
-                "key":3,
-                "name":"修改密码"
-            },
-            {
-                "key":4,
-                "name":"邮箱换绑"
-            },
-        ]
-    }
-];
 
 class User extends Component{
     static propTypes = {
         data: PropTypes.any,
         onShow: PropTypes.func
     }
-    constructor(){
-        super()
-        this.state = {
-            userData
-        }
-    }
     componentDidMount () {
         if (this.props.onShow) {
             this.props.onShow(localStorage.getItem("token"))
         }
     }
-    componentDidUpdate () {
-
-    }
+    // componentDidUpdate () {
+    //     console.log(this.props)
+    // }
     render(){
-        console.log(this.props.data)
+        // console.log(this.state)
         return (
             <div>
                 <UserComponent
-                    userData={this.state.userData}
-                    data={this.state.data}
+                    data={this.props.data}
                 />
             </div>
 
