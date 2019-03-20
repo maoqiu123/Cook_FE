@@ -9,6 +9,16 @@ export default class HeaderLayout extends Component{
     }
     componentDidUpdate(){
     }
+    showLogin(){
+        return (
+            <Menu.Item key="4" className="userAccount"><Link to="/login">登录</Link></Menu.Item>
+        )
+    }
+    // showRegister(){
+    //     return (
+    //         <Menu.Item key="3" className="userAccount"><Link to="/register">注册</Link></Menu.Item>
+    //     )
+    // }
     render(){
         return(
             <Header className="header">
@@ -18,12 +28,16 @@ export default class HeaderLayout extends Component{
                     defaultSelectedKeys={[this.props.data.menu?this.props.data.menu.topselectkeys:'1']}
                     style={{ lineHeight: '64px' }}
                 >
-                    {/*{console.log(this.state)}*/}
-                    <Menu.Item key="0"><Avatar size={60} icon="user" src={this.props.data.data?this.props.data.data.pic:null}/></Menu.Item>
+
                     <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
                     <Menu.Item key="2"><Link to="/user">User</Link></Menu.Item>
-                    <Menu.Item key="3" className="userAccount"><Link to="/register">注册</Link></Menu.Item>
-                    <Menu.Item key="4" className="userAccount"><Link to="/login">登录</Link></Menu.Item>
+
+                    {
+                        this.props.data.data?
+                            <Menu.Item key="0" className="userAccount"><Avatar size={60} icon="user" src={this.props.data.data.pic}/></Menu.Item>
+                            :this.showLogin()
+                    }
+
                 </Menu>
             </Header>
         )

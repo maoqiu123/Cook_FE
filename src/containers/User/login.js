@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import HeaderLayout from '../../components/Layout/header'
 import LoginComponent from '../../components/User/login'
 import { login } from '../../reducers/reducers'
+import {request} from '../../utils/request'
 
 const menu = {
     topselectkeys:'4',
@@ -12,7 +13,7 @@ const menu = {
 // 负责用户名的加载、保存，评论的发布
 class LoginContainer extends Component {
     static propTypes = {
-        load: PropTypes.any,
+        data: PropTypes.any,
         onSubmit: PropTypes.func
     }
     constructor(){
@@ -35,7 +36,7 @@ class LoginContainer extends Component {
             <div>
                 <HeaderLayout data={this.state}/>
                 <LoginComponent
-                    load={this.props.load}
+                    data={this.props.data}
                     onSubmit={this.handleSubmitComment.bind(this)} />
             </div>
 
@@ -44,16 +45,43 @@ class LoginContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state.data.data)
     return {
-        load: state
+        data: state.data.data
     }
 
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit: async (user) => {
-            await dispatch(login(user))
+        onSubmit: (user) => {
+            let result = null
+            request("/login",{
+                method:"POST",
+                data:{
+                    "password":user.password,
+                    "email":user.email
+                }
+            }).then(
+                (res) => {
+                    if (res.code === 1000){
+                        localStorage.setItem("token",res.data)
+                        window.location.href = "/"
+                        alert("登录成功，即将跳转主页面")
+                        dispatch(login({load:true}))
+                    }else {
+                        let errors = []
+                        for (let error in res.message){
+                            errors.push(res.message[error])
+                        }
+                        alert(errors.join("\n"))
+                        // window.location.href = "/login"
+                        dispatch(login({load:false}))
+                    }
+                }
+            )
+
+
         }
     }
 }

@@ -13,15 +13,9 @@ export default function (state={ data:[] }, action) {
             registerRequest(action.user,request)
             return { user: action.user }
         case LOGIN:
-            let status = true
-            loginRequest(action.user,request).then(
-                (res) => {
-                    status = res
-                }
-            )
-            return { status: status }
+            return { data: action }
         case USER:
-            return {...state,...action}
+            return { ...action }
         default:
             return state
     }
@@ -32,8 +26,8 @@ export const  register = (user) => {
     return { type: REGISTER, user }
 }
 
-export const login = (user) => {
-    return { type: LOGIN, user }
+export const login = (data) => {
+    return { type: LOGIN, data }
 }
 
 export const showUser = (data) => {

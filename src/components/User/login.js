@@ -10,13 +10,13 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            load: props.load,
+            data: props.load,
             loading : false
         }
     }
 
     static propTypes = {
-        load: PropTypes.any,
+        data: PropTypes.object,
         onSubmit: PropTypes.func,
     }
 
@@ -37,20 +37,17 @@ class Login extends Component {
                             password: values.password,
                             createdTime: +new Date()
                         })
-                        this.props.load.then(
-                            (res) => {
-                                this.setState({
-                                    loading: res.status
-                                })
-                            }
-                        )
                     }
                 }
             }
         });
     }
+    // componentDidUpdate(){
+    //     console.log(this.state)
+    // }
 
     render() {
+        console.log(this.props)
         const { getFieldDecorator } = this.props.form;
         return (
             <Form onSubmit={this.handleSubmit} className="login-form">
@@ -87,7 +84,7 @@ class Login extends Component {
                         <Checkbox>Remember me</Checkbox>
                     )}
                     <a className="login-form-forgot" href="">Forgot password</a>
-                    <Button type="primary" htmlType="submit" className="login-form-button" loading={this.state.loading}>
+                    <Button type="primary" htmlType="submit" className="login-form-button" loading={this.props.data?this.props.data.load:this.state.loading}>
                         Log in
                     </Button>
                     Or <Link to="/register">register now!</Link>

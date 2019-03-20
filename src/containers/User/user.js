@@ -19,7 +19,6 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(
     applyMiddleware(thunk),
-
 );
 const store = createStore(RegisterReducer, enhancer);
 class RegisterContainer extends Component{
