@@ -6,8 +6,6 @@ import './user.css'
 import HeaderLayout from '../Layout/header'
 import SiderLayout from '../Layout/sider'
 import ContentLayout from '../Layout/content'
-import {showUser} from "../../reducers/reducers";
-import connect from "react-redux/es/connect/connect";
 import PropTypes from 'prop-types'
 
 const menu = {
@@ -62,9 +60,10 @@ class UserComponent extends Component{
 
     }
     componentDidUpdate(){
-        // console.log(this.props)
+
     }
     render(){
+        console.log(this.props)
         return(
             <Layout>
                 {/* 头部 */}

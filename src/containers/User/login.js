@@ -75,13 +75,10 @@ const mapDispatchToProps = (dispatch) => {
                             errors.push(res.message[error])
                         }
                         alert(errors.join("\n"))
-                        // window.location.href = "/login"
                         dispatch(login({load:false}))
                     }
                 }
             )
-
-
         }
     }
 }
