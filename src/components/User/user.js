@@ -5,8 +5,10 @@ import {
 import './user.css'
 import HeaderLayout from '../Layout/header'
 import SiderLayout from '../Layout/sider'
-import ContentLayout from '../Layout/content'
+import UserDetail from './userDetail'
 import PropTypes from 'prop-types'
+
+const { Content } = Layout;
 
 const menu = {
     topselectkeys:'2',
@@ -50,7 +52,8 @@ const userData = [
 class UserComponent extends Component{
     static propTypes = {
         data: PropTypes.any,
-        onShow: PropTypes.func
+        onShow: PropTypes.func,
+        onSubmit: PropTypes.func
     }
     state={
         menu:menu,
@@ -63,7 +66,8 @@ class UserComponent extends Component{
 
     }
     render(){
-        console.log(this.props)
+        // console.log(this.props)
+        // console.log(this.state)
         return(
             <Layout>
                 {/* 头部 */}
@@ -77,7 +81,16 @@ class UserComponent extends Component{
                             <Breadcrumb.Item>{this.state.menu.menuName}</Breadcrumb.Item>
                         </Breadcrumb>
                         {/* 内容 */}
-                        <ContentLayout data={this.state}/>
+                        <Content style={{
+                            background: '#fff', padding: 24, margin: 0, minHeight: 280,
+                        }}
+                        >
+                            <UserDetail
+                                data={{...this.state,...this.props}}
+                                onSubmit={this.props.onSubmit}
+                            />
+                        </Content>
+
                     </Layout>
                 </Layout>
             </Layout>

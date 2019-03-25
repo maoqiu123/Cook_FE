@@ -7,6 +7,7 @@ import HeaderLayout from './header'
 import SiderLayout from './sider'
 import ContentLayout from './content'
 
+const { Content } = Layout;
 
 class MyLayout extends Component{
     render(){
@@ -23,7 +24,12 @@ class MyLayout extends Component{
                             <Breadcrumb.Item>{this.props.data.menu.menuName}</Breadcrumb.Item>
                         </Breadcrumb>
                         {/* 内容 */}
-                        <ContentLayout data={this.props.data}/>
+                        <Content style={{
+                            background: '#fff', padding: 24, margin: 0, minHeight: 280,
+                        }}
+                        >
+                            Content
+                        </Content>
                     </Layout>
                 </Layout>
             </Layout>

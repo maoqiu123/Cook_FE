@@ -55,7 +55,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSubmit: (user) => {
-            let result = null
             request("/login",{
                 method:"POST",
                 data:{

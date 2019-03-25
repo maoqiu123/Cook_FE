@@ -3,7 +3,8 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import Register from './register'
 import Login from './login'
-import RegisterReducer, {showUser} from '../../reducers/reducers'
+import UserDetail from './userDetail'
+import RegisterReducer, {login, showUser} from '../../reducers/reducers'
 import UserComponent from '../../components/User/user'
 import connect from "react-redux/es/connect/connect"
 import PropTypes from 'prop-types'
@@ -20,9 +21,10 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
     applyMiddleware(thunk),
 );
-const store = createStore(RegisterReducer, enhancer);
-class RegisterContainer extends Component{
 
+const store = createStore(RegisterReducer, enhancer);
+
+class RegisterContainer extends Component{
     render(){
         return(
             <Provider store={store}>
@@ -45,22 +47,20 @@ class LoginContainer extends Component{
 class User extends Component{
     static propTypes = {
         data: PropTypes.any,
-        onShow: PropTypes.func
+        onShow: PropTypes.func,
+        onSubmit: PropTypes.func
     }
     componentDidMount () {
         if (this.props.onShow) {
             this.props.onShow(localStorage.getItem("token"))
         }
     }
-    // componentDidUpdate () {
-    //     console.log(this.props)
-    // }
     render(){
-        // console.log(this.state)
         return (
             <div>
                 <UserComponent
                     data={this.props.data}
+                    onSubmit={this.props.onSubmit}
                 />
             </div>
 
@@ -83,6 +83,28 @@ const mapDispatchToProps = (dispatch) => {
             }).then(
                 (res) => {
                     dispatch(showUser(res))
+                }
+            )
+        },
+        onSubmit: (user) => {
+            request("/user",{
+                method:"PUT",
+                data:{
+                    "username":user.username,
+                    "token":user.token
+                }
+            }).then(
+                (res) => {
+                    if (res.code === 1000){
+                        console.log(res)
+                    }else {
+                        let errors = []
+                        for (let error in res.message){
+                            errors.push(res.message[error])
+                        }
+                        alert(errors.join("\n"))
+                        dispatch(login({load:false}))
+                    }
                 }
             )
         }
