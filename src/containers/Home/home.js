@@ -1,10 +1,8 @@
 import React,{Component} from 'react'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
-import Register from './register'
-import Login from './login'
-import RegisterReducer, {login, showUser} from '../../reducers/reducers'
-import UserComponent from '../../components/User/user'
+import RegisterReducer, {showUser} from '../../reducers/reducers'
+import HomeComponent from '../../components/Home/home'
 import connect from "react-redux/es/connect/connect"
 import PropTypes from 'prop-types'
 import {request} from '../../utils/request'
@@ -23,31 +21,10 @@ const enhancer = composeEnhancers(
 
 const store = createStore(RegisterReducer, enhancer);
 
-class RegisterContainer extends Component{
-    render(){
-        return(
-            <Provider store={store}>
-                <Register />
-            </Provider>
-        )
-    }
-}
-
-class LoginContainer extends Component{
-    render(){
-        return(
-            <Provider store={store}>
-                <Login />
-            </Provider>
-        )
-    }
-}
-
-class User extends Component{
+class Home extends Component{
     static propTypes = {
         data: PropTypes.any,
         onShow: PropTypes.func,
-        onSubmit: PropTypes.func
     }
     componentDidMount () {
         if (this.props.onShow) {
@@ -57,9 +34,8 @@ class User extends Component{
     render(){
         return (
             <div>
-                <UserComponent
+                <HomeComponent
                     data={this.props.data}
-                    onSubmit={this.props.onSubmit}
                 />
             </div>
 
@@ -84,41 +60,19 @@ const mapDispatchToProps = (dispatch) => {
                     dispatch(showUser(res))
                 }
             )
-        },
-        onSubmit: (user) => {
-            request("/user",{
-                method:"PUT",
-                data:{
-                    "username":user.username,
-                    "token":user.token
-                }
-            }).then(
-                (res) => {
-                    if (res.code === 1000){
-                        console.log(res)
-                    }else {
-                        let errors = []
-                        for (let error in res.message){
-                            errors.push(res.message[error])
-                        }
-                        alert(errors.join("\n"))
-                        dispatch(login({load:false}))
-                    }
-                }
-            )
         }
     }
 }
-const User2 = connect(mapStateToProps,mapDispatchToProps)(User)
+const Home2 = connect(mapStateToProps,mapDispatchToProps)(Home)
 
-class UserContainer extends Component{
+class HomeContainer extends Component{
     render(){
         return(
             <Provider store={store}>
-                <User2 />
+                <Home2 />
             </Provider>
         )
     }
 }
 
-export {RegisterContainer,LoginContainer,UserContainer}
+export {HomeContainer}

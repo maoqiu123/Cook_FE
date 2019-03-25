@@ -4,8 +4,7 @@ import {
     Route,
     Switch
 } from 'react-router-dom'
-import Home from '../components/home'
-import HeaderLayout from '../components/Layout/header'
+import {HomeContainer} from '../containers/Home/home'
 import {RegisterContainer,LoginContainer,UserContainer} from '../containers/User/user'
 
 // function  QAQ() {
@@ -20,7 +19,7 @@ const Routes = () => (
             <div>
                 {/*<HeaderLayout/>*/}
                 <Switch>
-                    <Route exact path="/" component={Home}/>
+                    <Route exact path="/" component={HomeContainer}/>
                     {/*<Route path="/qaq" component={QAQ}>*/}
                     <Route path="/user" component={UserContainer}/>
                     <Route path="/login" component={LoginContainer}/>

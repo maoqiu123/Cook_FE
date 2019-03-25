@@ -20,6 +20,7 @@ export default class HeaderLayout extends Component{
     //     )
     // }
     render(){
+        console.log(this.props)
         return(
             <Header className="header">
                 <Menu
@@ -30,7 +31,11 @@ export default class HeaderLayout extends Component{
                 >
 
                     <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
-                    <Menu.Item key="2"><Link to="/user">User</Link></Menu.Item>
+                    {
+                        this.props.data.data?
+                            <Menu.Item key="2"><Link to="/user">User</Link></Menu.Item>
+                            :null
+                    }
 
                     {
                         this.props.data.data?
