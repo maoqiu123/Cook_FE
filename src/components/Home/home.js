@@ -23,11 +23,10 @@ class Home extends Component{
         }
     }
     render(){
-        console.log(this.props)
         return (
             <Layout>
                 {/* 头部 */}
-                <HeaderLayout data={this.props.data}/>
+                <HeaderLayout data={{menu:this.state.menu,data: this.props.data.data}}/>
 
                 <Layout>
                     {/* 左部 */}

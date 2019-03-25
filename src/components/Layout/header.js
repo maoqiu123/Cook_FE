@@ -20,7 +20,7 @@ export default class HeaderLayout extends Component{
     //     )
     // }
     render(){
-        console.log(this.props)
+
         return(
             <Header className="header">
                 <Menu

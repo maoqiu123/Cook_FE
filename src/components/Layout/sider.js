@@ -5,14 +5,14 @@ const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 export default class SiderLayout extends Component{
-
     render(){
+        console.log(this.props)
         return(
             <Sider width={200} style={{ background: '#fff' }}>
                 <Menu
                     mode="inline"
-                    defaultSelectedKeys={[this.props.data.menu.leftSelectedKeys]}
-                    defaultOpenKeys={[this.props.data.menu.leftdefaultOpenKeys]}
+                    defaultSelectedKeys={[this.props.data.menu.leftSelectedKeys?this.props.data.menu.leftSelectedKeys:'1']}
+                    defaultOpenKeys={[this.props.data.menu.leftdefaultOpenKeys?this.props.data.menu.leftdefaultOpenKeys:'1']}
                     style={{ height: '100%', borderRight: 0 }}
                 >
                     {this.props.data.userData.map((subMenu)=>{
