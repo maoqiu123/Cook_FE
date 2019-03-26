@@ -1,12 +1,12 @@
 import React from "react";
 import {Component} from 'react'
 import {Menu, Layout, Icon} from "antd";
+import {Link} from "react-router-dom";
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 export default class SiderLayout extends Component{
     render(){
-        console.log(this.props)
         return(
             <Sider width={200} style={{ background: '#fff' }}>
                 <Menu
@@ -19,7 +19,11 @@ export default class SiderLayout extends Component{
                         return(
                             <SubMenu key={subMenu.key} title={<span><Icon type={subMenu.type} />{subMenu.name}</span>}>
                                 {JSON.stringify(subMenu.items) !== "{}" ? subMenu.items.map((item) => {
-                                    return (<Menu.Item key={item.key}>{item.name}</Menu.Item>)
+                                    return (<Menu.Item key={item.key}>
+                                        <Link to={item.action}>
+                                            {item.name}
+                                        </Link>
+                                    </Menu.Item>)
                                 }) : null}
                             </SubMenu>
                         )

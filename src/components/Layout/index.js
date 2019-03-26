@@ -28,15 +28,13 @@ const userData = [
         "items":[
             {
                 "key":2,
-                "name":"修改资料"
+                "name":"修改密码",
+                "action":"/"
             },
             {
                 "key":3,
-                "name":"修改密码"
-            },
-            {
-                "key":4,
-                "name":"邮箱换绑"
+                "name":"邮箱换绑",
+                "action":"/"
             },
         ]
     }
