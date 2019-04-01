@@ -89,8 +89,7 @@ const mapDispatchToProps = (dispatch) => {
             request("/user",{
                 method:"PUT",
                 data:{
-                    "username":user.username,
-                    "token":user.token
+                    ...user
                 }
             }).then(
                 (res) => {

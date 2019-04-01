@@ -1,26 +1,24 @@
 import React from "react";
 import {Component} from 'react'
-import {Menu, Avatar, Layout} from "antd";
+import {Menu, Avatar, Layout, Dropdown} from "antd";
 import {Link} from "react-router-dom";
+
 const { Header } = Layout;
 
+const menu = (
+    <Menu>
+        <Menu.Item key="0">
+            <Link to="/user">修改头像</Link>
+        </Menu.Item>
+    </Menu>
+);
 export default class HeaderLayout extends Component{
-    componentDidMount(){
-    }
-    componentDidUpdate(){
-    }
     showLogin(){
         return (
             <Menu.Item key="4" className="userAccount"><Link to="/login">登录</Link></Menu.Item>
         )
     }
-    // showRegister(){
-    //     return (
-    //         <Menu.Item key="3" className="userAccount"><Link to="/register">注册</Link></Menu.Item>
-    //     )
-    // }
     render(){
-
         return(
             <Header className="header">
                 <Menu
@@ -36,13 +34,15 @@ export default class HeaderLayout extends Component{
                             <Menu.Item key="2"><Link to="/user">User</Link></Menu.Item>
                             :null
                     }
-
                     {
                         this.props.data.data?
-                            <Menu.Item key="0" className="userAccount"><Avatar size={60} icon="user" src={this.props.data.data.pic}/></Menu.Item>
+                            <Menu.Item key="3" className="userAccount">
+                                <Dropdown  overlay={menu} trigger={['click']}>
+                                    <Avatar size={60} icon="user" src={this.props.data.data.pic}/>
+                                </Dropdown>
+                            </Menu.Item>
                             :this.showLogin()
                     }
-
                 </Menu>
             </Header>
         )
