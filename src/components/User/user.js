@@ -1,15 +1,8 @@
 import React, {Component} from 'react'
-import {
-    Layout, Breadcrumb
-} from 'antd';
 import './user.css'
-import HeaderLayout from '../Layout/header'
-import SiderLayout from '../Layout/sider'
 import UserDetail from './userDetail'
 import IndexLayout from '../Layout/index'
 import PropTypes from 'prop-types'
-
-const { Content } = Layout;
 
 const menu = {
     topselectkeys:'2',

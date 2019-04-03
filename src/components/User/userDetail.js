@@ -67,7 +67,7 @@ class UserDetailLayout extends Component{
         const children = [];
         for (let i = 0; i < formData.length; i++) {
             children.push(
-                <Col span={8} key={formData[i].key} style='block'>
+                <Col span={8} key={formData[i].key}>
                     <Form.Item label={formData[i].label}>
                         {
                             getFieldDecorator(formData[i].name, {
@@ -97,6 +97,7 @@ class UserDetailLayout extends Component{
                         token: window.localStorage.getItem("token")
                     })
                 }
+                window.location.href = "/user"
             }
         });
 

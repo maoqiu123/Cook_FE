@@ -10,7 +10,6 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: props.load,
             loading : false
         }
     }
@@ -24,7 +23,6 @@ class Login extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll(async (err, values) => {
             if (!err) {
-                // console.log('Received values of form: ', values);
                 this.setState({
                     loading: true
                 })
@@ -42,12 +40,9 @@ class Login extends Component {
             }
         });
     }
-    // componentDidUpdate(){
-    //     console.log(this.state)
-    // }
 
     render() {
-        console.log(this.props)
+        console.log(this.state)
         const { getFieldDecorator } = this.props.form;
         return (
             <Form onSubmit={this.handleSubmit} className="login-form">
@@ -83,7 +78,7 @@ class Login extends Component {
                     })(
                         <Checkbox>Remember me</Checkbox>
                     )}
-                    <a className="login-form-forgot" href="">Forgot password</a>
+                    {/*<Link className="login-form-forgot" to="/login">Forgot password</Link>*/}
                     <Button type="primary" htmlType="submit" className="login-form-button" loading={this.props.data?this.props.data.load:this.state.loading}>
                         Log in
                     </Button>

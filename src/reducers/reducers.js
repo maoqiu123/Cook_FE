@@ -1,6 +1,3 @@
-import {registerRequest,loginRequest,checkToken} from './User/user'
-import {request} from '../utils/request'
-
 // action types
 const REGISTER = 'register'
 const LOGIN = 'login'
@@ -10,8 +7,7 @@ const USER = 'user'
 export default function (state={ data:[] }, action) {
     switch (action.type) {
         case REGISTER:
-            registerRequest(action.user,request)
-            return { user: action.user }
+            return { data: action  }
         case LOGIN:
             return { data: action }
         case USER:

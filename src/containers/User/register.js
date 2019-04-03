@@ -2,7 +2,7 @@ import React,{Component} from "react"
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import RegisterComponent from '../../components/User/register'
-import { register } from '../../reducers/reducers'
+import {request} from "../../utils/request";
 import HeaderLayout from "../../components/Layout/header";
 
 const menu = {
@@ -53,8 +53,26 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit: (comment) => {
-            dispatch(register(comment))
+        onSubmit: (user) => {
+            request("/register",{
+                method:"POST",
+                data:{
+                    "username":user.username,
+                    "password":user.password,
+                    "email":user.email
+                }
+            }).then((res)=>{
+                if (res.code === 1000){
+                    window.location.href = "/login"
+                    alert("注册成功，即将跳转至登录页面")
+                }else {
+                    let errors = []
+                    for (let error in res.message){
+                        errors.push(res.message[error])
+                    }
+                    alert(errors.join("\n"))
+                }
+            })
         }
     }
 }

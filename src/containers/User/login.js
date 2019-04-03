@@ -32,6 +32,7 @@ class LoginContainer extends Component {
     }
 
     render () {
+        console.log(this.props)
         return (
             <div>
                 <HeaderLayout data={this.state}/>
@@ -45,7 +46,7 @@ class LoginContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.data.data)
+    console.log(state.data)
     return {
         data: state.data.data
     }
@@ -74,6 +75,7 @@ const mapDispatchToProps = (dispatch) => {
                             errors.push(res.message[error])
                         }
                         alert(errors.join("\n"))
+                        // window.location.href = "/login"
                         dispatch(login({load:false}))
                     }
                 }
