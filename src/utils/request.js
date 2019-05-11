@@ -1,7 +1,8 @@
 import axios from "axios";
+import Qs from 'qs'
 
 export function request(url,options) {
-    axios.defaults.baseURL = "http://localhost:80";
+    axios.defaults.baseURL = "http://localhost:8000";
     // axios.defaults.headers.post['Content-Type'] = 'application/json';
     if (options.method === "GET" || options.method === "DELETE") {
         let data = "?"
@@ -10,11 +11,13 @@ export function request(url,options) {
         }
         return axios({
             method:"GET",
+            ...options,
             url:url+data,
             // headers:{
             //             //     'Content-Type': 'application/json',
             //             // }
         }).then(res => {
+            console.log(res)
             if (res.status === 200){
                 return res.data
             }else {
@@ -32,7 +35,8 @@ export function request(url,options) {
             // headers:{
             //     'Content-Type': 'application/json',
             // },
-            ...options
+            ...options,
+            data:Qs.stringify({...options}.data)
         }).then(res => {
             if (res.status === 200){
                 return res.data

@@ -51,6 +51,7 @@ class User extends Component{
     }
     componentDidMount () {
         if (this.props.onShow) {
+            console.log("onShow")
             this.props.onShow(localStorage.getItem("token"))
         }
     }
@@ -76,11 +77,16 @@ const mapDispatchToProps = (dispatch) => {
         onShow: (token) => {
             request("/user",{
                 method:"GET",
-                data:{
+                // data:{
+                //     "token":token,
+                // },
+                headers:{
+                    'Content-Type':'application/x-www-form-urlencoded',
                     "token":token,
                 }
             }).then(
                 (res) => {
+                    console.log(res)
                     dispatch(showUser(res))
                 }
             )

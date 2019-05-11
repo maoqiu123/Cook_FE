@@ -56,7 +56,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSubmit: (user) => {
-            request("/login",{
+            request("/login/",{
                 method:"POST",
                 data:{
                     "password":user.password,
@@ -64,8 +64,9 @@ const mapDispatchToProps = (dispatch) => {
                 }
             }).then(
                 (res) => {
+                    console.log(res.data)
                     if (res.code === 1000){
-                        localStorage.setItem("token",res.data)
+                        localStorage.setItem("token",res.data.token)
                         window.location.href = "/"
                         alert("登录成功，即将跳转主页面")
                         dispatch(login({load:true}))

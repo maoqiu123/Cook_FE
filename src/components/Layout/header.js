@@ -38,7 +38,7 @@ export default class HeaderLayout extends Component{
                         this.props.data.data?
                             <Menu.Item key="3" className="userAccount">
                                 <Dropdown  overlay={menu} trigger={['click']}>
-                                    <Avatar size={60} icon="user" src={this.props.data.data.pic}/>
+                                    <Avatar size={60} icon="user" src={this.props.data.data.avatar}/>
                                 </Dropdown>
                             </Menu.Item>
                             :this.showLogin()

@@ -52,7 +52,11 @@ const mapDispatchToProps = (dispatch) => {
         onShow: (token) => {
             request("/user",{
                 method:"GET",
-                data:{
+                // data:{
+                //     "token":token,
+                // },
+                headers:{
+                    'Content-Type':'application/x-www-form-urlencoded',
                     "token":token,
                 }
             }).then(
