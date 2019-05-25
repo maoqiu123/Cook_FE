@@ -89,11 +89,11 @@ class UserDetailLayout extends Component{
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err){
-                let pic = values.pic ? "http://cook.thmaoqiu.cn/" + values.pic.file.response.hash : this.state.imageUrl
+                let avatar = values.avatar ? "http://cook.thmaoqiu.cn/" + values.avatar.file.response.hash : this.state.imageUrl
                 if (this.props.onSubmit){
                     this.props.onSubmit({
                         username: values.username,
-                        pic: pic,
+                        avatar: avatar,
                         token: window.localStorage.getItem("token")
                     })
                 }
@@ -108,7 +108,7 @@ class UserDetailLayout extends Component{
             if (!this.state.load){
                 this.setState({
                     load:true,
-                    imageUrl:this.props.data.data.data.pic
+                    imageUrl:this.props.data.data.data.avatar
                 })
                 this.props.form.setFieldsValue({
                     "username":this.props.data.data.data.username
@@ -149,7 +149,7 @@ class UserDetailLayout extends Component{
                         <Col span={8} key='3'>
                             <Form.Item label='Avater'>
                                 {
-                                    this.props.form.getFieldDecorator('pic', {
+                                    this.props.form.getFieldDecorator('avatar', {
                                         rules: [{
                                             required: false,
                                             message: 'Input something!',

@@ -3,6 +3,7 @@ import Qs from 'qs'
 
 export function request(url,options) {
     axios.defaults.baseURL = "http://localhost:8000";
+    let token = localStorage.getItem("token") ? localStorage.getItem("token") : null;
     // axios.defaults.headers.post['Content-Type'] = 'application/json';
     if (options.method === "GET" || options.method === "DELETE") {
         let data = "?"
@@ -11,8 +12,11 @@ export function request(url,options) {
         }
         return axios({
             method:"GET",
-            ...options,
             url:url+data,
+            headers:{
+                'Content-Type':'application/x-www-form-urlencoded',
+                "token":token,
+            }
             // headers:{
             //             //     'Content-Type': 'application/json',
             //             // }
@@ -32,11 +36,12 @@ export function request(url,options) {
     }else if (options.method === "POST" || options.method === "PUT"){
         return axios({
             url:url,
-            // headers:{
-            //     'Content-Type': 'application/json',
-            // },
             ...options,
-            data:Qs.stringify({...options}.data)
+            data:Qs.stringify({...options}.data),
+            headers:{
+                'Content-Type':'application/x-www-form-urlencoded',
+                "token":token,
+            }
         }).then(res => {
             if (res.status === 200){
                 return res.data

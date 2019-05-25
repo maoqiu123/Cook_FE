@@ -44,6 +44,10 @@ class LoginContainer extends Component{
 }
 
 class User extends Component{
+    constructor(){
+        super()
+
+    }
     static propTypes = {
         data: PropTypes.any,
         onShow: PropTypes.func,
@@ -51,7 +55,6 @@ class User extends Component{
     }
     componentDidMount () {
         if (this.props.onShow) {
-            console.log("onShow")
             this.props.onShow(localStorage.getItem("token"))
         }
     }
@@ -80,13 +83,15 @@ const mapDispatchToProps = (dispatch) => {
                 // data:{
                 //     "token":token,
                 // },
-                headers:{
-                    'Content-Type':'application/x-www-form-urlencoded',
-                    "token":token,
-                }
+                // headers:{
+                //     'Content-Type':'application/x-www-form-urlencoded',
+                //     "token":token,
+                // }
             }).then(
                 (res) => {
-                    console.log(res)
+                    if (res.code !== 1000){
+                        window.location.href = '/'
+                    }
                     dispatch(showUser(res))
                 }
             )
@@ -99,6 +104,8 @@ const mapDispatchToProps = (dispatch) => {
                 }
             }).then(
                 (res) => {
+                    console.log(user)
+                    alert(123)
                     if (res.code === 1000){
                         console.log(res)
                     }else {
