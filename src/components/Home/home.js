@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import HeaderLayout from "../Layout/header";
 import SiderLayout from "../Layout/sider";
+import ChatLayout from '../Chat/chat'
 
 const { Content } = Layout;
 const userData = [];
@@ -38,10 +39,10 @@ class Home extends Component{
                         </Breadcrumb>
                         {/* 内容 */}
                         <Content style={{
-                            background: '#fff', padding: 24, margin: 0, minHeight: 280,
+                            background: '#ECECEC', padding: 24, margin: 0, minHeight: 280,
                         }}
                         >
-                            Content2
+                            <ChatLayout/>
                         </Content>
                     </Layout>
                 </Layout>
