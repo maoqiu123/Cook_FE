@@ -9,11 +9,16 @@ ws.onopen = function(evt) {
 };
 
 ws.onmessage = function(evt) {
-    console.log( "Received Message: " + evt.data);
-    let content = document.getElementById("content")
-    let child = document.createElement("p")
-    content.appendChild(child)
-    child.innerText = evt.data
+    let data = JSON.parse(evt.data);
+    console.log(data);
+    let content = document.getElementById("content");
+    let child = document.createElement("p");
+    if (data.type === 'first'){
+        child.innerText = data.data.message;
+    }else {
+        child.innerText = 'user' + data.data.id + ' : ' + data.data.message;
+    }
+    content.appendChild(child);
 };
 
 ws.onclose = function(evt) {
@@ -50,11 +55,7 @@ class ChatLayout extends Component{
         return(
             <div style={{ background: '#ECECEC', padding: '30px' }}>
                 <Card title="毛球的聊天室" bordered={false} style={{ width: 750, margin:"auto" }}>
-                    <div  style={{width:"suto", height:300}} id="content">
-                        {/*<p>*_* 欢迎进入聊天室 *_*</p>*/}
-                        {/*<p style={{wordWrap: "break-word", wordB0reak: "break-all"}}>aaaa</p>*/}
-                        {/*<p style={{wordWrap: "break-word", wordB0reak: "break-all"}}>aaaa</p>*/}
-                        {/*<p style={{wordWrap: "break-word", wordB0reak: "break-all"}}>aaaa</p>*/}
+                    <div  style={{width:"auto", height:300, overflow:"auto"}} id="content">
                     </div>
                     <Form onSubmit={this.handleSubmit} layout="inline">
                         <Form.Item>
