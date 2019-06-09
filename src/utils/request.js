@@ -11,7 +11,7 @@ export function request(url,options) {
             data += key+"="+options.data[key]+"&"
         }
         return axios({
-            method:"GET",
+            method:options.method,
             url:url+data,
             headers:{
                 'Content-Type':'application/x-www-form-urlencoded',
